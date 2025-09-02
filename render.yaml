@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: storyteller-mvp
+    env: node
+    buildCommand: |
+      npm ci --prefix client
+      npm run build --prefix client
+      npm ci --prefix server
+    startCommand: node server/index.js
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: STORY_MODEL
+        value: gpt-4o-mini
+      - key: TTS_MODEL
+        value: gpt-4o-mini-tts
+      - key: STT_MODEL
+        value: whisper-1
+      - key: CORS_ORIGIN
+        value: "*"
